@@ -1,4 +1,4 @@
-class EvokeApiServiceSchema < GraphQL::Schema
-  mutation MutationType
-  query QueryType
+EvokeApiServiceSchema = GraphQL::Schema.define do
+  mutation(Types::MutationType)
+  query(Types::QueryType)
 end
