@@ -10,7 +10,7 @@ module QueryTypes
     field :collection, Types::CollectionType, 'returns a collection by ID' do
       argument :id, !types.ID
 
-      resolve ->(_obj, args, _ctx) { Collection.find(args.id) }
+      resolve ->(_obj, args, _ctx) { Collection.find(args[:id]) }
     end
   end
 end
