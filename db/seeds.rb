@@ -11,22 +11,22 @@ require 'faker'
 collection_a = Collection.create(title: 'Default')
 collection_b = Collection.create(title: 'Hamilton')
 
-definition = Definition.create(
-    term: 'slave',
+definition_a = Definition.create(
+    term: 'slake',
     definition: 'to quench or satisfy'
 )
-definition.entries.create(collection: collection_a)
+definition_a.entries.create(collection: collection_a)
 
 
-definition = Definition.create(
+definition_b = Definition.create(
     term: 'impetuous',
     definition: 'acting or done quickly and without thought or care'
 )
-definition.entries.create(collection: collection_a)
-definition.entries.create(collection: collection_b)
+definition_b.entries.create(collection: collection_a)
+definition_b.entries.create(collection: collection_b)
 
-definition = Definition.create(
+definition_c = Definition.create(
     term: 'worsted',
     definition: 'a fine smooth yarn spun from combed long-staple wool'
 )
-definition.entries.create(collection: collection_b)
+definition_c.entries.create(collection: collection_b)

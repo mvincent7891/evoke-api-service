@@ -4,5 +4,9 @@ class Entry < ApplicationRecord
   belongs_to :collection
   belongs_to :item, polymorphic: true
 
-  attr_accessor :item_type
+  def definition
+    if self.item_type == 'Definition'
+      self.item
+    end
+  end
 end
