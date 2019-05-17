@@ -6,5 +6,6 @@ module Types
     field :id, !types.ID
     field :term, !types.String
     field :definition, !types.String
+    field :item_type, !types.String
   end
 end

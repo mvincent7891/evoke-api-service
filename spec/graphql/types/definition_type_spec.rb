@@ -16,4 +16,9 @@ RSpec.describe Types::DefinitionType do
     # Ensure the field is of String type
     expect(subject).to have_field(:definition).that_returns(!types.String)
   end
+
+  it 'has a :item_type field of String type' do
+    # Ensure the field is of String type
+    expect(subject).to have_field(:item_type).that_returns(!types.String)
+  end
 end

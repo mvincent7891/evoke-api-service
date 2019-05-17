@@ -8,12 +8,15 @@ module Types
       resolve ->(_obj, _args, _ctx) { _obj.collection }
     end
 
-    # TODO change to :item
     field :definition, Types::DefinitionType do
       resolve ->(_obj, _args, _ctx) do
-        puts '========='
-        puts _obj.definition.term
         _obj.definition
+      end
+    end
+
+    field :item, Types::ItemType do
+      resolve ->(_obj, _args, _ctx) do
+        _obj.item
       end
     end
   end
