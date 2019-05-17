@@ -23,13 +23,13 @@ RSpec.describe QueryTypes::CollectionQueryType do
     end
   end
 
-  describe 'querying a collection' do
+  describe 'query a specific collection using it\'s id' do
 
     it 'has a :collection that returns a Collection type' do
       expect(subject).to have_field(:collection).that_returns(Types::CollectionType)
     end
 
-    it 'returns a  collection by id' do
+    it 'returns the queried  collection' do
       collection = Collection.first
       args = { id: collection.id }
       query_result = subject.fields['collection'].resolve(nil, args, nil)
