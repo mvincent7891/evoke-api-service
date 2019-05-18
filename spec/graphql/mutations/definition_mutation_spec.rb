@@ -3,7 +3,8 @@ RSpec.describe Mutations::DefinitionMutation do
     let(:args) do
       {
         term: 'test',
-        definition: 'a thing you create before you code'
+        definition: 'a thing you create before you code',
+        source: 'user'
       }
     end
 

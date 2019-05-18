@@ -4,4 +4,6 @@ class Definition < ApplicationRecord
     def item_type
         'Definition'
     end
+
+    # add enum for souce
 end
