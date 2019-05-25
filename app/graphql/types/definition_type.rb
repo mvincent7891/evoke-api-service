@@ -8,5 +8,8 @@ module Types
     field :definition, !types.String
     # field :source, !types.String
     field :item_type, !types.String
+    field :synonyms, types[Types::SynonymType], 'return definition synonyms' do    
+      resolve ->(_obj, args, _ctx) { _obj.synonyms }
+    end
   end
 end

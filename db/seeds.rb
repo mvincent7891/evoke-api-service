@@ -17,6 +17,15 @@ definition_a = Definition.create(
 )
 definition_a.entries.create(collection: collection_a)
 
+definition_d = Definition.create(
+    term: 'quench',
+    definition: 'satisfy (one\'s thirst) by drinking'
+)
+
+definition_d.entries.create(collection: collection_a)
+
+definition_d.synonyms.create(synonym: definition_a)
+definition_a.synonyms.create(synonym: definition_d)
 
 definition_b = Definition.create(
     term: 'impetuous',

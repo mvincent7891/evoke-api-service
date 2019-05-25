@@ -21,4 +21,9 @@ RSpec.describe Types::DefinitionType do
     # Ensure the field is of String type
     expect(subject).to have_field(:item_type).that_returns(!types.String)
   end
+
+  it 'has a :synonyms field of [Types::SynonymType] types' do
+    # Ensure the field is of [Types::SynonymType] type
+    expect(subject).to have_field(:synonyms).that_returns([Types::SynonymType])
+  end
 end

@@ -11,4 +11,9 @@ RSpec.describe Types::CollectionType do
     # Ensure the field is of String type
     expect(subject).to have_field(:title).that_returns(!types.String)
   end
+
+  it 'has a :entries field of [Types::EntryType] types' do
+    # Ensure the field is of [Types::EntryType] type
+    expect(subject).to have_field(:entries).that_returns([Types::EntryType])
+  end
 end
