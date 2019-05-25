@@ -8,11 +8,14 @@ module Mutations
       argument :definition, !types.String
       argument :collectionId, !types.Int
       argument :source, !types.String
+      argument :lexical_category, !types.String
 
       resolve ->(_obj, args, _ctx) do
         definition = Definition.create({
           term: args[:term],
-          definition: args[:definition]
+          definition: args[:definition],
+          lexical_category: args[:lexical_category],
+          source: args[:source]
         })
 
         if args[:collectionId]

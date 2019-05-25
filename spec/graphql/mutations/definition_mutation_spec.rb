@@ -13,6 +13,7 @@ RSpec.describe Mutations::DefinitionMutation do
         term: 'test',
         definition: 'a thing you create before you code',
         collectionId: collection.id,
+        lexical_category: 'noun',
         source: 'user'
       }
     end

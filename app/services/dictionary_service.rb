@@ -23,10 +23,12 @@ module DictionaryService
 
     def lookup_entry(params)
       term = params[:term]
+      should_create_definition = params[:create]
 
       url = "#{config[:url]}/entries/#{config[:language_code]}/#{term}?fields=definitions"
-
       response = _get(url)
+
+      entries = []
 
       if response.code == 200
         response["results"].each do |result|
@@ -34,15 +36,26 @@ module DictionaryService
             lexicalEntry["entries"].each do |entry|
               entry["senses"].each do |sense|
                 sense["definitions"].each do |definition|
-                  puts "#{result["id"]} (#{lexicalEntry["lexicalCategory"]["text"]}): #{definition}"
+
+                  entry_attributes = {
+                    source: 'oxford',
+                    lexical_category: lexicalEntry["lexicalCategory"]["id"],
+                    definition: definition,
+                    term: result["id"]
+                  }
+                  entries.push(entry_attributes)
+
+                  if should_create_definition
+                    Definition.create(**entry_attributes)
+                  end
                 end
               end
             end
           end
         end
       end
-      'ok'
-
+    
+      entries
     end
   end
 end

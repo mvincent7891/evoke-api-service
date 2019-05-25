@@ -13,13 +13,17 @@ collection_b = Collection.create(title: 'Hamilton')
 
 definition_a = Definition.create(
     term: 'slake',
-    definition: 'to quench or satisfy'
+    definition: 'to quench or satisfy',
+    lexical_category: 'verb',
+    source: 'user'
 )
 definition_a.entries.create(collection: collection_a)
 
 definition_d = Definition.create(
     term: 'quench',
-    definition: 'satisfy (one\'s thirst) by drinking'
+    definition: 'satisfy (one\'s thirst) by drinking',
+    lexical_category: 'verb',
+    source: 'user'
 )
 
 definition_d.entries.create(collection: collection_a)
@@ -29,13 +33,17 @@ definition_a.synonyms.create(synonym: definition_d)
 
 definition_b = Definition.create(
     term: 'impetuous',
-    definition: 'acting or done quickly and without thought or care'
+    definition: 'acting or done quickly and without thought or care',
+    lexical_category: 'adjective',
+    source: 'user'
 )
 definition_b.entries.create(collection: collection_a)
 definition_b.entries.create(collection: collection_b)
 
 definition_c = Definition.create(
     term: 'worsted',
-    definition: 'a fine smooth yarn spun from combed long-staple wool'
+    definition: 'a fine smooth yarn spun from combed long-staple wool',
+    lexical_category: 'noun',
+    source: 'user'
 )
 definition_c.entries.create(collection: collection_b)
