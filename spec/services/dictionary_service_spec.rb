@@ -14,4 +14,17 @@ RSpec.describe DictionaryService do
       DictionaryService.lookup_entry(params)
     end.to change { Definition.count }.by 3
   end
+
+  it 'calls lookup_similar' do
+    params = {term: 'review', create: true}
+    DictionaryService.lookup_entry(params)
+
+    definition = Definition.last
+
+    params = {definition_id: definition.id}
+
+    entries = DictionaryService.lookup_similar(params)
+
+    expect(entries.empty?).to eq false
+  end
 end

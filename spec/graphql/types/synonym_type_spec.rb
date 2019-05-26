@@ -7,13 +7,18 @@ RSpec.describe Types::SynonymType do
     expect(subject).to have_field(:id).that_returns(!types.ID)
   end
 
-  it 'has a :definition field of Definition type' do
+  it 'has an :definition attr of Definition type' do
     # Ensure the field is of Definition type
     expect(subject).to have_field(:definition).that_returns(Types::DefinitionType)
   end
 
-  it 'has a :synonym field of Definition type' do
+  it 'has an :origin attr of Definition type' do
     # Ensure the field is of Definition type
-    expect(subject).to have_field(:synonym).that_returns(Types::DefinitionType)
+    expect(subject).to have_field(:origin).that_returns(Types::DefinitionType)
+  end
+
+  it 'has a :synonym field of String type' do
+    # Ensure the field is of String type
+    expect(subject).to have_field(:synonym).that_returns(!types.String)
   end
 end

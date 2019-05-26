@@ -6,7 +6,7 @@ module Mutations
     field :create_definition, Types::DefinitionType do
       argument :term, !types.String
       argument :definition, !types.String
-      argument :collectionId, !types.Int
+      argument :collection_id, !types.Int
       argument :source, !types.String
       argument :lexical_category, !types.String
 
@@ -18,8 +18,8 @@ module Mutations
           source: args[:source]
         })
 
-        if args[:collectionId]
-          collection = Collection.find(args[:collectionId])
+        if args[:collection_id]
+          collection = Collection.find(args[:collection_id])
           definition.entries.create(collection: collection)
         end
 

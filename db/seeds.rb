@@ -28,8 +28,8 @@ definition_d = Definition.create(
 
 definition_d.entries.create(collection: collection_a)
 
-definition_d.synonyms.create(synonym: definition_a)
-definition_a.synonyms.create(synonym: definition_d)
+definition_d.synonyms.create(synonym: definition_a.term)
+definition_a.synonyms.create(synonym: definition_d.term)
 
 definition_b = Definition.create(
     term: 'impetuous',

@@ -4,7 +4,8 @@ module Types
     description 'The Synonym type'
 
     field :id, !types.ID
-    field :synonym, Types::DefinitionType
+    field :synonym, !types.String
+    field :origin, Types::DefinitionType
     field :definition, Types::DefinitionType
   end
 end
