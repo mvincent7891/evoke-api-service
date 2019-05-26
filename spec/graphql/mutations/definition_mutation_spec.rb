@@ -31,5 +31,29 @@ RSpec.describe Mutations::DefinitionMutation do
         subject.fields['create_definition'].resolve(nil, args, nil)
       end.to change { Entry.count }.by 1
     end
+
+    it 'does not require collection_id' do
+      new_args = {**args}
+      new_args.delete(:collection_id)
+
+      expect do 
+        subject.fields['create_definition'].resolve(nil, new_args, nil)
+      end.to change { Definition.count }.by 1
+    end
+
+    describe 'duplicate entries' do
+      it 'does not create duplicate entries or definitions' do
+        subject.fields['create_definition'].resolve(nil, args, nil)
+  
+        
+        expect do 
+          subject.fields['create_definition'].resolve(nil, args, nil)
+        end.to change { Entry.count }.by 0
+  
+        expect do 
+          subject.fields['create_definition'].resolve(nil, args, nil)
+        end.to change { Definition.count }.by 0
+      end
+    end
   end
 end

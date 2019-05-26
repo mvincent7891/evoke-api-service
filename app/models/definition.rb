@@ -6,7 +6,7 @@ class Definition < ApplicationRecord
     validates :lexical_category, presence: true
     validates :hashed_def, uniqueness: true
 
-    has_many :entries, as: :item
+    has_many :entries, as: :item, dependent: :destroy
     has_many :synonyms
     # has_many :antonyms
 
