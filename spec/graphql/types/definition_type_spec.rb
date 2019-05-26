@@ -26,4 +26,9 @@ RSpec.describe Types::DefinitionType do
     # Ensure the field is of [Types::SynonymType] type
     expect(subject).to have_field(:synonyms).that_returns([Types::SynonymType])
   end
+
+  it 'has a :hashed_def field of String types' do
+    # Ensure the field is of [Types::SynonymType] type
+    expect(subject).to have_field(:hashed_def).that_returns(!types.String)
+  end
 end

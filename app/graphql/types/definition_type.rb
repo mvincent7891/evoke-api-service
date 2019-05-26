@@ -9,6 +9,7 @@ module Types
     field :lexical_category, !types.String
     field :source, !types.String
     field :item_type, !types.String
+    field :hashed_def, !types.String
     field :synonyms, types[Types::SynonymType], 'return definition synonyms' do    
       resolve ->(_obj, args, _ctx) { _obj.synonyms }
     end
@@ -21,5 +22,7 @@ module Types
       field :definition, !types.String
       field :lexical_category, !types.String
       field :source, !types.String
+      field :hashed_def, !types.String
+      field :collections, types[types.Int]
   end
 end

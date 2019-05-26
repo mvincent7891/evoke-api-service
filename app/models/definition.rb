@@ -1,5 +1,5 @@
 class Definition < ApplicationRecord
-    before_validation :build_hashed_def
+    before_validation :assign_hashed_def
 
     validates :term, presence: true
     validates :definition, presence: true
@@ -12,13 +12,27 @@ class Definition < ApplicationRecord
 
     enum source: [:oxford, :user]
 
+    def self.build_hashed_def(_term:, _definition:, _source:, _lexical_category:)
+        # TODO: raise Exception / do something
+        if [_term, _definition, _source, _lexical_category].any? &:blank?
+            puts 'hashed_def taken for term, definition, source, lexical_category combination'
+        end
+
+        hash_input = "#{_term}::#{_definition}::#{_source}::#{_lexical_category}"
+        Digest::SHA2.hexdigest hash_input
+    end
+
     def item_type
         'Definition'
     end
 
     private
-    def build_hashed_def
-        hash_input = "#{term}::#{definition}::#{source}::#{lexical_category}"
-        self.hashed_def = Digest::SHA2.hexdigest hash_input
+    def assign_hashed_def
+        self.hashed_def = Definition.build_hashed_def(
+            _term: term,
+            _definition: definition,
+            _source: source,
+            _lexical_category: lexical_category
+        )
     end
 end
