@@ -8,7 +8,7 @@ class Definition < ApplicationRecord
 
     has_many :entries, as: :item, dependent: :destroy
     has_many :synonyms
-    # has_many :antonyms
+    has_many :antonyms
 
     enum source: [:oxford, :user]
 

@@ -13,6 +13,9 @@ module Types
     field :synonyms, types[Types::SynonymType], 'return definition synonyms' do    
       resolve ->(_obj, args, _ctx) { _obj.synonyms }
     end
+    field :antonyms, types[Types::AntonymType], 'return definition antonyms' do    
+      resolve ->(_obj, args, _ctx) { _obj.antonyms }
+    end
   end
 
   DefinitionHashType = GraphQL::ObjectType.define do
