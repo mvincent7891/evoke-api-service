@@ -60,6 +60,7 @@ module DictionaryService
     end
 
     def lookup_similar(params)
+      should_create_similar = params[:create]
       definition_id = params[:definition_id]
       definition = Definition.find(definition_id)
       term = definition.term
@@ -69,30 +70,38 @@ module DictionaryService
       url = "#{config[:url]}/thesaurus/#{config[:language_code]}/#{term}"
       response = _get(url)
 
-      response["results"].each do |result|
-        result["lexicalEntries"].each do |lexical_entry|
-          lexical_entry["entries"].each do |entry|
-            entry["senses"].each do |sense|
+      if response.code == 200
+        response["results"].each do |result|
+          result["lexicalEntries"].each do |lexical_entry|
+            lexical_entry["entries"].each do |entry|
+              entry["senses"].each do |sense|
 
-              synoyms = sense["synonyms"] || []
-              antonyms = sense["antonyms"] || []
+                synoyms = sense["synonyms"] || []
+                antonyms = sense["antonyms"] || []
 
-              synoyms.each do |synonym|
-                synonym_key = synonym["id"] || synonym["text"]
-                entries[:synonyms][synonym_key] = true
+                synoyms.each do |synonym|
+                  synonym_key = synonym["id"]&.gsub!('_', ' ') || synonym["text"]
+                  entries[:synonyms][synonym_key] = [definition_id, synonym_key]
+                end
+
+                antonyms.each do |antonym|
+                  antonym_key = antonym["id"]&.gsub!('_', ' ') || antonym["text"]
+                  entries[:antonyms][antonym_key] = [definition_id, antonym_key]
+                end
+
               end
-
-              antonyms.each do |antonym|
-                antonym_key = antonym["id"] || antonym["text"]
-                entries[:antonyms][antonym_key] = true
-              end
-
             end
           end
         end
       end
-      entries
-    end
+      
+      if should_create_similar
+        columns = [:definition_id, :synonym]
+        Synonym.import columns, entries[:synonyms].values
 
+        columns = [:definition_id, :antonym]
+        Antonym.import columns, entries[:antonyms].values
+      end
+    end
   end
 end
