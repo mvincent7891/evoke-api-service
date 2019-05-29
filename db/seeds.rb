@@ -74,12 +74,13 @@ definition_c.entries.create(collection: collection_b)
         source: "oxford",
     }
 ].each do |definition|
-    Definition.create(
+    new_definition = Definition.create(
         term: definition[:term],
         definition: definition[:definition],
         lexical_category: definition[:lexical_category],
         source: definition[:source]
     )
+    new_definition.entries.create(collection: collection_a)
 end
 
 [
