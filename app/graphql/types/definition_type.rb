@@ -25,7 +25,7 @@ module Types
       field :definition, !types.String
       field :lexical_category, !types.String
       field :source, !types.String
-      field :hashed_def, !types.String
-      field :collections, types[types.Int]
+      field :hashed_def, types.String
+      field :collection_ids, types[types.Int]
   end
 end

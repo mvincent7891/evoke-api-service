@@ -1,11 +1,18 @@
 module DefinitionService
   class << self
+
+    def create_many_definitions(params)
+      params[:definitions].each do |definition|
+        create_definition(definition)
+      end
+    end
+
     def create_definition(params)
       term = params[:term].strip.downcase
       definition = params[:definition].strip
       lex_cat = params[:lexical_category]
       source = params[:source]
-      collection_id = params[:collection_id]
+      collection_ids = params[:collection_ids]
 
       definition = Definition.create({
           term: term,
@@ -21,13 +28,15 @@ module DefinitionService
         definition = extant_definition
       end
 
-      if collection_id
-        collection = Collection.find(collection_id)
+      if collection_ids
+        collections = Collection.find(collection_ids)
       else
-        collection = Collection.find_by(title: 'Default')
+        collections = [Collection.find_by(title: 'Default')]
       end
 
-      definition.entries.find_or_create_by(collection: collection)
+      collections.each do |collection|
+        definition.entries.find_or_create_by(collection: collection)
+      end
       
       definition
     end

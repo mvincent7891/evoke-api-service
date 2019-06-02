@@ -14,5 +14,13 @@ module Mutations
         definition = DefinitionService.create_definition(args)
       end
     end
+
+    field :create_many_definitions, types[Types::DefinitionType] do
+      argument :definitions, !types[Types::DefinitionHashType]
+
+      resolve ->(_obj, args, _ctx) do
+        definition = DefinitionService.create_many_definitions(args)
+      end
+    end
   end
 end

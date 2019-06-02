@@ -46,7 +46,7 @@ module DictionaryService
                   entries.push(entry_attributes)
 
                   if should_create_definition
-                    Definition.create(**entry_attributes)
+                    DefinitionService.create_definition(entry_attributes)
                   end
 
                 end

@@ -23,7 +23,7 @@ module QueryTypes
           )
 
           definition[:hashed_def] = hashed_def
-          definition[:collections] = []
+          definition[:collection_ids] = []
           definitions_by_hashed_def[hashed_def] = OpenStruct.new(**definition)       
         end
 

@@ -12,7 +12,7 @@ RSpec.describe Mutations::DefinitionMutation do
       {
         term: 'test',
         definition: 'a thing you create before you code',
-        collection_id: collection.id,
+        collection_ids: [collection.id],
         lexical_category: 'noun',
         source: 'user'
       }
@@ -32,9 +32,9 @@ RSpec.describe Mutations::DefinitionMutation do
       end.to change { Entry.count }.by 1
     end
 
-    it 'does not require collection_id' do
+    it 'does not require collection_ids' do
       new_args = {**args}
-      new_args.delete(:collection_id)
+      new_args.delete(:collection_ids)
 
       expect do 
         subject.fields['create_definition'].resolve(nil, new_args, nil)
