@@ -7,8 +7,8 @@ class Definition < ApplicationRecord
     validates :hashed_def, uniqueness: true
 
     has_many :entries, as: :item, dependent: :destroy
-    has_many :synonyms
-    has_many :antonyms
+    has_many :synonyms, dependent: :destroy
+    has_many :antonyms, dependent: :destroy
 
     enum source: [:oxford, :user]
 

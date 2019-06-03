@@ -2,7 +2,7 @@ module DefinitionService
   class << self
 
     def create_many_definitions(params)
-      params[:definitions].each do |definition|
+      params[:definitions].map do |definition|
         create_definition(definition)
       end
     end

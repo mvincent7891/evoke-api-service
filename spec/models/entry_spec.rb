@@ -24,4 +24,13 @@ RSpec.describe Entry, type: :model do
     describe 'model associations' do
       it { expect(entry).to belong_to(:collection) }
     end
+
+    describe 'dependent destruction' do 
+      it 'is destroyed when the associated item is destroyed' do 
+        entry
+        expect do 
+          Definition.last.destroy
+        end.to change { Entry.count }.by -1
+      end
+    end
   end

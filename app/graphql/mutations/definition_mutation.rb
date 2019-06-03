@@ -16,7 +16,7 @@ module Mutations
     end
 
     field :create_many_definitions, types[Types::DefinitionType] do
-      argument :definitions, !types[Types::DefinitionHashType]
+      argument :definitions, types[Types::DefinitionInputType]
 
       resolve ->(_obj, args, _ctx) do
         definition = DefinitionService.create_many_definitions(args)
