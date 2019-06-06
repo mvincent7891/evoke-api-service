@@ -17,11 +17,6 @@ RSpec.describe DictionaryService do
 
   skip 'calls lookup_similar' do
     params = {term: 'review', create: true}
-    DictionaryService.lookup_entry(params)
-
-    definition = Definition.last
-
-    params = {definition_id: definition.id}
 
     entries = DictionaryService.lookup_similar(params)
 

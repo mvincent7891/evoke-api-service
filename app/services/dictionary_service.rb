@@ -61,9 +61,7 @@ module DictionaryService
 
     def lookup_similar(params)
       should_create_similar = params[:create]
-      definition_id = params[:definition_id]
-      definition = Definition.find(definition_id)
-      term = definition.term
+      term = params[:term]
 
       entries = {synonyms: {}, antonyms: {}}
 
@@ -81,12 +79,12 @@ module DictionaryService
 
                 synoyms.each do |synonym|
                   synonym_key = synonym["id"]&.gsub!('_', ' ') || synonym["text"]
-                  entries[:synonyms][synonym_key] = [definition_id, synonym_key]
+                  entries[:synonyms][synonym_key] = [term, synonym_key]
                 end
 
                 antonyms.each do |antonym|
                   antonym_key = antonym["id"]&.gsub!('_', ' ') || antonym["text"]
-                  entries[:antonyms][antonym_key] = [definition_id, antonym_key]
+                  entries[:antonyms][antonym_key] = [term, antonym_key]
                 end
 
               end
@@ -96,12 +94,14 @@ module DictionaryService
       end
       
       if should_create_similar
-        columns = [:definition_id, :synonym]
+        columns = [:term, :synonym]
         Synonym.import columns, entries[:synonyms].values
 
-        columns = [:definition_id, :antonym]
+        columns = [:term, :antonym]
         Antonym.import columns, entries[:antonyms].values
       end
+
+      entries[:antonyms].count + entries[:synonyms].count
     end
   end
 end

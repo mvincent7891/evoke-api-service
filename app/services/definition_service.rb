@@ -14,6 +14,7 @@ module DefinitionService
       source = params[:source]
       collection_ids = params[:collection_ids]
 
+      # create the definition
       definition = Definition.create({
           term: term,
           definition: definition,
@@ -28,6 +29,7 @@ module DefinitionService
         definition = extant_definition
       end
 
+      # add entries to collections
       if collection_ids
         collections = Collection.find(collection_ids)
       else
@@ -36,6 +38,17 @@ module DefinitionService
 
       collections.each do |collection|
         definition.entries.find_or_create_by(collection: collection)
+      end
+
+      # add similar (synonyms and antonyms)
+      synonyms_exist = Synonym.where(term: term).count > 0
+      antonyms_exist = Antonym.where(term: term).count > 0
+      if !(synonyms_exist || antonyms_exist)
+        similar_count = DictionaryService.lookup_similar({
+          term: term,
+          create: true
+        })
+        puts "#{similar_count} synonyms / antonyms created."
       end
       
       definition

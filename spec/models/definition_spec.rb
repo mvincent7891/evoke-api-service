@@ -17,23 +17,9 @@ RSpec.describe Definition, type: :model do
 
   describe 'model associations' do
     it { expect(definition).to have_many(:entries) }
-    it { expect(definition).to have_many(:synonyms) }
   end
 
   describe 'has item type \'Definition\'' do
     it { expect(definition.item_type).to eq('Definition') }
-  end
-
-  describe 'synonyms' do 
-    it 'has none initially' do
-      expect(definition.synonyms).to eq([])
-    end
-
-    it 'creates synonyms' do
-      synonym = create(:definition)
-      definition.synonyms.create(synonym: synonym)
-
-      expect(definition.synonyms.count).to eq(1)
-    end
   end
 end

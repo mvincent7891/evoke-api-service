@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_27_003543) do
+ActiveRecord::Schema.define(version: 2019_06_04_195614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "antonyms", force: :cascade do |t|
-    t.integer "definition_id"
     t.string "antonym"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["definition_id"], name: "index_antonyms_on_definition_id"
+    t.string "term"
+    t.index ["term"], name: "index_antonyms_on_term"
   end
 
   create_table "collections", force: :cascade do |t|
@@ -50,11 +50,11 @@ ActiveRecord::Schema.define(version: 2019_05_27_003543) do
   end
 
   create_table "synonyms", force: :cascade do |t|
-    t.integer "definition_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "synonym"
-    t.index ["definition_id"], name: "index_synonyms_on_definition_id"
+    t.string "term"
+    t.index ["term"], name: "index_synonyms_on_term"
   end
 
   add_foreign_key "entries", "collections"

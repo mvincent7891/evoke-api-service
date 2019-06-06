@@ -6,9 +6,21 @@ RSpec.describe QueryTypes::KeywordsQueryType do
   let!(:antonyms) { create_list(:antonym, 3) }
   let!(:collection) { create(:collection, title: 'Test') }
   
+
+
   let!(:entries) {
-    synonyms.each { |synonym| synonym.definition.entries.create(collection: collection) }
-    antonyms.each { |antonym| antonym.definition.entries.create(collection: collection) }
+    entries = []
+    entries += synonyms.map do |synonym| 
+      definition = create(:definition, term: synonym.term)
+      definition.entries.create(collection: collection) 
+    end
+
+    entries += antonyms.map do |antonym| 
+      definition = create(:definition, term: antonym.term)
+      definition.entries.create(collection: collection) 
+    end
+
+    entries
   }
 
   describe 'querying all keywords' do
